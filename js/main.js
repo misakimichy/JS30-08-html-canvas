@@ -4,7 +4,11 @@ const updateCords = (e, mouse, lastMouse, ctx) => {
     mouse.x = e.pageX - e.currentTarget.offsetLeft;
     mouse.y = e.pageY - e.currentTarget.offsetTop;
 
-    let color = e.x;
+    updateColor(lastMouse.x, ctx);
+};
+
+const updateColor = (x, ctx) => {
+    let color = x;
     ctx.strokeStyle = `hsl(${color}, 100%, 50%)`;
 };
 
