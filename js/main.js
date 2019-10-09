@@ -1,3 +1,13 @@
+const updateCords = (e, mouse, lastMouse, ctx) => {
+    lastMouse.x = mouse.x;
+    lastMouse.y = mouse.y;
+    mouse.x = e.pageX - e.currentTarget.offsetLeft;
+    mouse.y = e.pageY - e.currentTarget.offsetTop;
+
+    let color = e.x;
+    ctx.strokeStyle = `hsl(${color}, 100%, 50%)`;
+};
+
 (function(){
     const canvas = document.querySelector("#draw");
     const ctx = canvas.getContext('2d');
@@ -13,25 +23,17 @@
     ctx.lineJoin = 'round';
     ctx.lineCap = 'round';
 
-    canvas.addEventListener('mousemove', (e) => {
-        lastMouse.x = mouse.x;
-        lastMouse.y = mouse.y;
-        mouse.x = e.pageX - e.currentTarget.offsetLeft;
-        mouse.y = e.pageY - e.currentTarget.offsetTop;
-
-        let color = e.x;
-        ctx.strokeStyle = `hsl(${color}, 100%, 50%)`;
-    }, false);
+    canvas.addEventListener('mousemove', (e) => updateCords(e, mouse, lastMouse, ctx));
 
     canvas.addEventListener('mousedown', () => {
-        canvas.addEventListener('mousemove', draw, false);
-    }, false);
+        canvas.addEventListener('mousemove', draw);
+    });
     canvas.addEventListener('mouseup', () => {
-        canvas.removeEventListener('mousemove', draw, false)
-    }, false);
+        canvas.removeEventListener('mousemove', draw)
+    });
     canvas.addEventListener('mouseout', () => {
-        canvas.removeEventListener('mousemove', draw, false);
-    }, false);
+        canvas.removeEventListener('mousemove', draw);
+    });
 
     const draw = () => {
         ctx.beginPath();
