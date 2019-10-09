@@ -4,11 +4,11 @@ const updateCords = (e, mouse, lastMouse, ctx) => {
     mouse.x = e.pageX - e.currentTarget.offsetLeft;
     mouse.y = e.pageY - e.currentTarget.offsetTop;
 
-    updateColor(lastMouse.x, ctx);
+    updateColor(lastMouse.x, lastMouse.y, ctx);
 };
 
-const updateColor = (x, ctx) => {
-    let color = x;
+const updateColor = (x, y, ctx) => {
+    let color = (x + y) / 2;
     ctx.strokeStyle = `hsl(${color}, 100%, 50%)`;
 };
 
@@ -23,7 +23,6 @@ const updateColor = (x, ctx) => {
     const lastMouse = {x: 0, y: 0};
 
     ctx.lineWidth = 20;
-    ctx.strokeStyle = '#fc9803';
     ctx.lineJoin = 'round';
     ctx.lineCap = 'round';
 
